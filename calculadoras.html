@@ -5,28 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadoras | Breno Marques, advogado OAB/BA 62.266</title>
 <meta name="description" content="Estimativa do débito de pensão alimentícia em atraso e da data de progressão de regime, com as regras atuais. O cálculo é feito no seu aparelho.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231D4E9E'/%3E%3Cpath d='M16 4 28 16 16 28 4 16Z' fill='none' stroke='%23F7F8FA' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F7F8FA'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%230F1B2D'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23C9A56A' stroke-width='1.2'/%3E%3Ctext x='16' y='20.5' font-family='Georgia,serif' font-size='12' fill='%23C9A56A' text-anchor='middle'%3EBM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #F7F8FA;
-    --ink: #16213A;
-    --cobalt: #1D4E9E;
-    --cobalt-deep: #133672;
-    --tile: #E6ECF6;
-    --stone: #545E72;
-    --rule: #D3DAE6;
-    --field: #AEB8C9;
-    --alert: #8A4B00;
-    --alert-bg: #FFF4E0;
+    --navy-950: #0A1422;
+    --navy-900: #0F1B2D;
+    --navy-800: #16263D;
+    --navy-700: #22385A;
+    --gold: #C9A56A;
+    --gold-light: #E2C690;
+    --gold-deep: #85652F;
+    --ivory: #F6F3EC;
 
-    --serif: "Spectral", Georgia, "Times New Roman", serif;
-    --sans: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+    --paper: #FFFFFF;
+    --ink: #1A2233;
+    --cobalt: #16263D;
+    --cobalt-deep: #0F1B2D;
+    --tile: #EFE8DA;
+    --stone: #596172;
+    --rule: #E4DED2;
+    --field: #BDB5A4;
+    --alert: #7A4A06;
+    --alert-bg: #FBF1DE;
+
+    --serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+    --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
     --measure: 38rem;
-    --wrap: 72rem;
+    --wrap: 74rem;
     --gutter: clamp(1.25rem, 4vw, 3rem);
   }
 
@@ -40,14 +49,15 @@
     color: var(--ink);
     font-family: var(--sans);
     font-size: 1.125rem;
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  a { color: var(--cobalt); text-underline-offset: 0.18em; }
-  a:hover { color: var(--cobalt-deep); }
-  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+  a { color: var(--gold-deep); text-underline-offset: 0.18em; }
+  a:hover { color: var(--navy-800); }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+  svg { display: block; }
 
   .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
 
@@ -57,40 +67,66 @@
   }
   .skip:focus { left: 1rem; top: 1rem; }
 
+  /* Barra superior */
+  .topbar { background: var(--navy-950); color: #C8CEDA; font-size: .875rem; }
+  .topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 2.5rem; flex-wrap: wrap; }
+  .topbar a { color: #E7EAF0; text-decoration: none; display: inline-flex; align-items: center; gap: .45rem; }
+  .topbar a:hover { color: var(--gold-light); }
+  .topbar svg { width: 1rem; height: 1rem; color: var(--gold); }
+  .topbar-contatos { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
   /* Cabeçalho */
-  .masthead { border-bottom: 1px solid var(--rule); background: var(--paper); }
-  .masthead .wrap {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 1.5rem; min-height: 4.5rem; flex-wrap: wrap;
+  .masthead { background: var(--white); border-bottom: 1px solid var(--rule); position: relative; z-index: 20; }
+  .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 5.5rem; }
+  .marca { display: flex; align-items: center; gap: .9rem; text-decoration: none; color: var(--navy-900); }
+  .mono {
+    width: 3.1rem; height: 3.1rem; border-radius: 50%; border: 1px solid var(--gold); flex: none;
+    display: grid; place-items: center; font-family: var(--serif); font-weight: 600; font-size: 1.35rem;
+    color: var(--gold-deep); letter-spacing: .02em; position: relative;
   }
-  .brand { text-decoration: none; color: var(--ink); display: flex; align-items: baseline; gap: .75rem; }
-  .brand-name { font-family: var(--serif); font-size: 1.3125rem; font-weight: 500; }
-  .brand-oab { font-size: .875rem; color: var(--stone); font-variant-numeric: tabular-nums; }
-  .masthead nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; }
-  .masthead nav a { color: var(--ink); text-decoration: none; font-size: 1rem; padding: .25rem 0; border-bottom: 2px solid transparent; }
-  .masthead nav a:hover, .masthead nav a[aria-current="page"] { border-bottom-color: var(--cobalt); color: var(--ink); }
+  .mono::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; border: 1px solid rgba(201,165,106,.45); }
+  .marca-texto { display: flex; flex-direction: column; line-height: 1; }
+  .marca-nome { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; letter-spacing: .09em; text-transform: uppercase; }
+  .marca-sub { font-size: .72rem; font-weight: 600; letter-spacing: .42em; text-transform: uppercase; color: var(--gold-deep); margin-top: .4rem; }
+
+  .menu { display: flex; align-items: center; gap: 2rem; }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.75rem; }
+  .menu a { color: var(--navy-900); text-decoration: none; font-weight: 600; font-size: 1rem; padding: .3rem 0; border-bottom: 2px solid transparent; }
+  .menu a:hover, .menu a[aria-current="page"] { border-bottom-color: var(--gold); color: var(--navy-900); }
+  .menu .menu-wa { display: inline-block; padding: .7rem 1.2rem; border: 1px solid var(--gold); border-radius: 2px; font-weight: 700; color: var(--navy-900); }
+  .menu .menu-wa:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-950); }
+  .menu-toggle { display: none; background: none; border: 1px solid var(--rule); border-radius: 3px; padding: .55rem .7rem; color: var(--navy-900); cursor: pointer; }
+  .menu-toggle svg { width: 1.4rem; height: 1.4rem; }
 
   /* Abertura da página */
-  .page-head { padding: clamp(2.75rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem); }
-  .page-head h1 {
-    font-family: var(--serif); font-weight: 500;
-    font-size: clamp(2.75rem, 6vw, 4.25rem); line-height: 1; letter-spacing: -0.015em;
-    margin: 0 0 1.25rem;
+  .page-head {
+    color: #fff; padding: clamp(3rem, 7vw, 5rem) 0 clamp(2.75rem, 6vw, 4rem);
+    background:
+      radial-gradient(ellipse 50% 80% at 85% 30%, rgba(201,165,106,.13), transparent 70%),
+      linear-gradient(160deg, var(--navy-800) 0%, var(--navy-900) 55%, var(--navy-950) 100%);
   }
-  .page-head p { max-width: var(--measure); color: var(--stone); margin: 0 0 1.75rem; }
+  .page-lema { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 1.3rem; color: var(--gold-light); margin: 0 0 1rem; display: flex; align-items: center; gap: .9rem; }
+  .page-lema::before { content: ""; width: 3rem; height: 1px; background: var(--gold); }
+  .page-head h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(2.9rem, 6vw, 4.5rem); line-height: 1; margin: 0 0 1.25rem; color: #fff;
+  }
+  .page-head p { max-width: var(--measure); color: #CDD3DE; margin: 0 0 2rem; }
   .indice { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .75rem; }
   .indice a {
-    display: inline-block; padding: .7rem 1.1rem; border: 2px solid var(--cobalt); border-radius: 3px;
-    font-weight: 700; font-size: 1rem; text-decoration: none; color: var(--cobalt);
+    display: inline-block; padding: .85rem 1.25rem; border: 1px solid var(--gold); border-radius: 2px;
+    font-weight: 700; font-size: 1rem; text-decoration: none; color: #fff;
   }
-  .indice a:hover { background: var(--tile); color: var(--cobalt-deep); }
+  .indice a:hover { background: var(--gold); color: var(--navy-950); }
 
   /* Calculadoras */
-  .calc { padding: clamp(3rem, 7vw, 5rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
+  .calc { padding: clamp(3.5rem, 8vw, 5.5rem) 0; scroll-margin-top: 1rem; }
+  .calc + .calc { background: var(--ivory); }
   .calc h2 {
-    font-family: var(--serif); font-weight: 500;
-    font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.1; margin: 0 0 .75rem;
+    font-family: var(--serif); font-weight: 600; color: var(--navy-900);
+    font-size: clamp(2.25rem, 4vw, 3rem); line-height: 1.08; margin: 0 0 1rem;
   }
+  .calc h2::after { content: ""; display: block; width: 3.5rem; height: 2px; background: var(--gold); margin-top: 1rem; }
   .calc .intro { max-width: var(--measure); color: var(--stone); margin: 0 0 2.5rem; }
   .calc-grid {
     display: grid; grid-template-columns: minmax(0, 25rem) minmax(0, 1fr);
@@ -106,40 +142,40 @@
     padding: .7rem .8rem; border: 1px solid var(--field); border-radius: 3px; background: #fff;
     min-height: 2.9rem;
   }
-  input:focus-visible, select:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 1px; }
+  input:focus-visible, select:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; }
   .grade-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
   .grade-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
   .sub { display: block; font-size: .9375rem; color: var(--stone); margin-bottom: .3rem; }
   .opcoes label { display: flex; align-items: center; gap: .6rem; font-size: 1.0625rem; margin: .35rem 0; cursor: pointer; }
-  .opcoes input, .check input { width: 1.15rem; height: 1.15rem; accent-color: var(--cobalt); flex: none; }
+  .opcoes input, .check input { width: 1.15rem; height: 1.15rem; accent-color: var(--navy-900); flex: none; }
   .check { display: flex; gap: .6rem; align-items: flex-start; font-size: 1rem; line-height: 1.45; cursor: pointer; }
   .check input { margin-top: .2rem; }
   .oculto { display: none; }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
-    font: 700 1.0625rem/1 var(--sans); padding: 1rem 1.6rem; border-radius: 3px;
-    border: 2px solid var(--cobalt); background: var(--cobalt); color: #fff; cursor: pointer;
+    font: 700 1.0625rem/1 var(--sans); letter-spacing: .02em; padding: 1rem 1.6rem; border-radius: 2px;
+    border: 1px solid var(--navy-900); background: var(--navy-900); color: #fff; cursor: pointer;
   }
-  .btn:hover { background: var(--cobalt-deep); border-color: var(--cobalt-deep); }
+  .btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-950); }
 
   .erro { color: #9B1C1C; font-weight: 700; font-size: 1rem; margin: 1rem 0 0; }
   .erro:empty { display: none; }
 
   /* Resultado */
-  .resultado { border-top: 3px solid var(--cobalt); padding-top: 1.5rem; }
+  .resultado { background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 1.75rem clamp(1.25rem, 3vw, 2rem); }
   .resultado-vazio { color: var(--stone); margin: 0; }
   .destaque-rotulo { font-size: 1rem; color: var(--stone); margin: 0 0 .2rem; }
   .destaque {
-    font-family: var(--serif); font-weight: 500; font-size: clamp(2.25rem, 4.5vw, 3.25rem);
-    line-height: 1.05; margin: 0 0 1.75rem; color: var(--cobalt-deep); font-variant-numeric: lining-nums tabular-nums;
+    font-family: var(--serif); font-weight: 600; font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.05; margin: 0 0 1.75rem; color: var(--navy-900); font-variant-numeric: lining-nums tabular-nums;
   }
   .numeros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; margin: 0 0 1.75rem; }
-  .numeros div { border-left: 3px solid var(--tile); padding-left: 1rem; }
+  .numeros div { border-left: 2px solid var(--gold); padding-left: 1rem; }
   .numeros dt { font-size: .9375rem; color: var(--stone); }
-  .numeros dd { margin: 0; font-family: var(--serif); font-size: 1.375rem; line-height: 1.3; font-variant-numeric: lining-nums tabular-nums; }
+  .numeros dd { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.5rem; line-height: 1.3; font-variant-numeric: lining-nums tabular-nums; }
   .base-legal { font-size: 1rem; margin: 0 0 1.5rem; }
-  .aviso { background: var(--alert-bg); color: var(--alert); border-left: 3px solid #D08A2E; padding: .85rem 1rem; font-size: 1rem; line-height: 1.5; margin: 0 0 1.5rem; }
+  .aviso { background: var(--alert-bg); color: var(--alert); border-left: 3px solid var(--gold); padding: .85rem 1rem; font-size: 1rem; line-height: 1.5; margin: 0 0 1.5rem; }
   .notas { margin: 0; padding-left: 1.1rem; font-size: .9375rem; color: var(--stone); line-height: 1.55; }
   .notas li + li { margin-top: .5rem; }
 
@@ -150,31 +186,62 @@
   th { font-size: .875rem; color: var(--stone); font-weight: 700; }
   td.num, th.num { text-align: right; }
   td input { width: 6.5rem; font: 400 .9375rem/1.2 var(--sans); padding: .4rem .5rem; border: 1px solid var(--field); border-radius: 3px; text-align: right; background: #fff; }
-  tr.prisao td:first-child { box-shadow: inset 3px 0 0 var(--cobalt); }
+  tr.prisao td:first-child { box-shadow: inset 3px 0 0 var(--gold); }
   .rito { font-size: .8125rem; font-weight: 700; color: var(--cobalt-deep); white-space: nowrap; }
   .rito.penhora { color: var(--stone); font-weight: 400; }
 
   .contato-linha { margin: 1.75rem 0 0; font-size: 1rem; }
 
   /* Rodapé */
-  footer { padding: 2.5rem 0 3rem; font-size: .9375rem; color: var(--stone); border-top: 1px solid var(--rule); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; }
-  footer p { margin: 0; max-width: 40rem; }
+  footer { background: var(--navy-950); color: #AEB6C6; font-size: .95rem; }
+  .rodape { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; padding: 3rem 0 2rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+  footer .marca { color: #fff; }
+  footer .mono { color: var(--gold); }
+  footer .marca-sub { color: var(--gold); }
+  .rodape nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  .rodape nav a { color: #D9DEE7; text-decoration: none; }
+  .rodape nav a:hover { color: var(--gold-light); }
+  .rodape-legal { padding: 1.5rem 0 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; }
+  .rodape-legal p { margin: 0; max-width: 44rem; }
+
+  /* WhatsApp flutuante */
+  .wa-flutuante {
+    position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 40; width: 3.6rem; height: 3.6rem; border-radius: 50%;
+    display: grid; place-items: center; background: var(--gold); color: var(--navy-950);
+    box-shadow: 0 6px 18px rgba(10,20,34,.35); text-decoration: none;
+  }
+  .wa-flutuante:hover { background: var(--gold-light); color: var(--navy-950); }
+  .wa-flutuante svg { width: 1.8rem; height: 1.8rem; }
 
   @media (max-width: 900px) {
     .calc-grid { grid-template-columns: 1fr; }
+    .menu-toggle { display: inline-flex; }
+    .menu {
+      display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff;
+      border-bottom: 1px solid var(--rule); padding: 1rem var(--gutter) 1.5rem; flex-direction: column; align-items: stretch; gap: 1rem;
+      box-shadow: 0 12px 24px rgba(10,20,34,.12);
+    }
+    .menu.aberto { display: flex; }
+    .menu ul { flex-direction: column; gap: 0; }
+    .menu ul a { display: block; padding: .8rem 0; border-bottom: 1px solid var(--rule); }
+    .menu .menu-wa { text-align: center; }
   }
   @media (max-width: 640px) {
     body { font-size: 1.0625rem; }
-    .masthead .wrap { padding-top: .9rem; padding-bottom: .9rem; }
-    .masthead nav ul { gap: .5rem 1.25rem; }
-    .brand { flex-direction: column; gap: 0; }
+    .topbar .topbar-email { display: none; }
+    .topbar .wrap { justify-content: center; }
+    .topbar-oab { display: none; }
+    .masthead .wrap { min-height: 4.75rem; }
+    .mono { width: 2.6rem; height: 2.6rem; font-size: 1.1rem; }
+    .marca-nome { font-size: 1.3rem; }
+    .marca-sub { font-size: .66rem; letter-spacing: .36em; }
+    .rodape { grid-template-columns: 1fr; }
     .btn { width: 100%; }
     .numeros { grid-template-columns: 1fr; }
     .col-venc { display: none; }
     .tabela-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     .tabela-wrap tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: .75rem; padding: .75rem 0 .8rem .85rem; border-bottom: 1px solid var(--rule); }
-    .tabela-wrap tr.prisao { box-shadow: inset 3px 0 0 var(--cobalt); }
+    .tabela-wrap tr.prisao { box-shadow: inset 3px 0 0 var(--gold); }
     .tabela-wrap td { border: 0; padding: 0; text-align: left; }
     .tabela-wrap td.num { text-align: left; }
     .tabela-wrap td:first-child { grid-column: 1 / 3; font-weight: 700; margin-bottom: .4rem; box-shadow: none; }
@@ -187,18 +254,36 @@
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
+<div class="topbar">
+  <div class="wrap">
+    <span class="topbar-oab">Advogado inscrito na OAB/BA sob o nº&nbsp;62.266</span>
+    <div class="topbar-contatos">
+      <a href="tel:+5571991428257"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>(71) 99142-8257</a>
+      <a class="topbar-email" href="mailto:brenoluis.marquesadv@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>brenoluis.marquesadv@gmail.com</a>
+    </div>
+  </div>
+</div>
+
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="./">
-      <span class="brand-name">Breno Marques</span>
-      <span class="brand-oab">OAB/BA 62.266</span>
+    <a class="marca" href="./" aria-label="Breno Marques, advogado, página inicial">
+      <span class="mono" aria-hidden="true">BM</span>
+      <span class="marca-texto">
+        <span class="marca-nome">Breno Marques</span>
+        <span class="marca-sub">Advogado</span>
+      </span>
     </a>
-    <nav aria-label="Seções do site">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="menu" id="menu" aria-label="Seções do site">
       <ul>
+        <li><a href="./#sobre">Sobre</a></li>
         <li><a href="./#atuacao">Atuação</a></li>
         <li><a href="calculadoras.html" aria-current="page">Calculadoras</a></li>
         <li><a href="./#contato">Contato</a></li>
       </ul>
+      <a class="menu-wa" href="https://wa.me/5571991428257?text=Ol%C3%A1%2C%20gostaria%20de%20marcar%20um%20atendimento." rel="noopener">WhatsApp</a>
     </nav>
   </div>
 </header>
@@ -206,6 +291,7 @@
 <main id="conteudo">
   <section class="page-head" aria-labelledby="titulo">
     <div class="wrap">
+      <p class="page-lema">Ferramentas de estimativa</p>
       <h1 id="titulo">Calculadoras</h1>
       <p>Duas ferramentas para uma estimativa rápida, com as regras atuais. As contas são feitas no seu próprio aparelho: nenhum dado é enviado ou guardado.</p>
       <ul class="indice">
@@ -335,10 +421,33 @@
 
 <footer>
   <div class="wrap">
-    <p>Breno Marques, advogado inscrito na OAB/BA sob o nº&nbsp;62.266.</p>
-    <p>As informações deste site têm caráter meramente informativo e não substituem a análise de um caso concreto.</p>
+    <div class="rodape">
+      <a class="marca" href="./" aria-label="Breno Marques, advogado, página inicial">
+        <span class="mono" aria-hidden="true">BM</span>
+        <span class="marca-texto">
+          <span class="marca-nome">Breno Marques</span>
+          <span class="marca-sub">Advogado</span>
+        </span>
+      </a>
+      <nav aria-label="Rodapé">
+        <ul>
+          <li><a href="./#sobre">Sobre</a></li>
+          <li><a href="./#atuacao">Atuação</a></li>
+          <li><a href="calculadoras.html">Calculadoras</a></li>
+          <li><a href="./#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="rodape-legal">
+      <p>Breno Marques, advogado inscrito na OAB/BA sob o nº&nbsp;62.266.</p>
+      <p>As informações deste site têm caráter meramente informativo e não substituem a análise de um caso concreto.</p>
+    </div>
   </div>
 </footer>
+
+<a class="wa-flutuante" href="https://wa.me/5571991428257?text=Ol%C3%A1%2C%20gostaria%20de%20marcar%20um%20atendimento." rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.4-.3Z"/></svg>
+</a>
 
 <script>
 (function () {
@@ -718,6 +827,25 @@
   $('#a-ajuiz').value = isoHoje();
   $('#form-alimentos').addEventListener('submit', calcularAlimentos);
   $('#form-progressao').addEventListener('submit', calcularProgressao);
+})();
+</script>
+<script>
+(function () {
+  var botao = document.querySelector('.menu-toggle');
+  var menu = document.getElementById('menu');
+  if (!botao || !menu) return;
+  botao.addEventListener('click', function () {
+    var aberto = menu.classList.toggle('aberto');
+    botao.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  });
+  Array.prototype.forEach.call(menu.querySelectorAll('a'), function (a) {
+    a.addEventListener('click', function () {
+      menu.classList.remove('aberto');
+      botao.setAttribute('aria-expanded', 'false');
+      botao.setAttribute('aria-label', 'Abrir menu');
+    });
+  });
 })();
 </script>
 </body>
