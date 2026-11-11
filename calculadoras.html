@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadoras | Breno Marques, advogado OAB/BA 62.266</title>
+<meta name="description" content="Estimativa do débito de pensão alimentícia em atraso e da data de progressão de regime, com as regras atuais. O cálculo é feito no seu aparelho.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231D4E9E'/%3E%3Cpath d='M16 4 28 16 16 28 4 16Z' fill='none' stroke='%23F7F8FA' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F7F8FA'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F8FA;
+    --ink: #16213A;
+    --cobalt: #1D4E9E;
+    --cobalt-deep: #133672;
+    --tile: #E6ECF6;
+    --stone: #545E72;
+    --rule: #D3DAE6;
+    --field: #AEB8C9;
+    --alert: #8A4B00;
+    --alert-bg: #FFF4E0;
+
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --sans: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+
+    --measure: 38rem;
+    --wrap: 72rem;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: var(--cobalt); text-underline-offset: 0.18em; }
+  a:hover { color: var(--cobalt-deep); }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+  .skip {
+    position: absolute; left: -999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem; z-index: 10;
+  }
+  .skip:focus { left: 1rem; top: 1rem; }
+
+  /* Cabeçalho */
+  .masthead { border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .masthead .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; min-height: 4.5rem; flex-wrap: wrap;
+  }
+  .brand { text-decoration: none; color: var(--ink); display: flex; align-items: baseline; gap: .75rem; }
+  .brand-name { font-family: var(--serif); font-size: 1.3125rem; font-weight: 500; }
+  .brand-oab { font-size: .875rem; color: var(--stone); font-variant-numeric: tabular-nums; }
+  .masthead nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; }
+  .masthead nav a { color: var(--ink); text-decoration: none; font-size: 1rem; padding: .25rem 0; border-bottom: 2px solid transparent; }
+  .masthead nav a:hover, .masthead nav a[aria-current="page"] { border-bottom-color: var(--cobalt); color: var(--ink); }
+
+  /* Abertura da página */
+  .page-head { padding: clamp(2.75rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem); }
+  .page-head h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2.75rem, 6vw, 4.25rem); line-height: 1; letter-spacing: -0.015em;
+    margin: 0 0 1.25rem;
+  }
+  .page-head p { max-width: var(--measure); color: var(--stone); margin: 0 0 1.75rem; }
+  .indice { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .indice a {
+    display: inline-block; padding: .7rem 1.1rem; border: 2px solid var(--cobalt); border-radius: 3px;
+    font-weight: 700; font-size: 1rem; text-decoration: none; color: var(--cobalt);
+  }
+  .indice a:hover { background: var(--tile); color: var(--cobalt-deep); }
+
+  /* Calculadoras */
+  .calc { padding: clamp(3rem, 7vw, 5rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: 1rem; }
+  .calc h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.1; margin: 0 0 .75rem;
+  }
+  .calc .intro { max-width: var(--measure); color: var(--stone); margin: 0 0 2.5rem; }
+  .calc-grid {
+    display: grid; grid-template-columns: minmax(0, 25rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem); align-items: start;
+  }
+
+  fieldset { border: 0; margin: 0 0 1.4rem; padding: 0; min-width: 0; }
+  legend, .campo > label { display: block; font-weight: 700; font-size: 1rem; margin: 0 0 .4rem; padding: 0; }
+  .campo { margin-bottom: 1.4rem; }
+  .ajuda { display: block; font-size: .9375rem; color: var(--stone); line-height: 1.45; margin-top: .4rem; }
+  input[type="text"], input[type="date"], select {
+    width: 100%; font: 400 1.0625rem/1.3 var(--sans); color: var(--ink);
+    padding: .7rem .8rem; border: 1px solid var(--field); border-radius: 3px; background: #fff;
+    min-height: 2.9rem;
+  }
+  input:focus-visible, select:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 1px; }
+  .grade-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+  .grade-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .sub { display: block; font-size: .9375rem; color: var(--stone); margin-bottom: .3rem; }
+  .opcoes label { display: flex; align-items: center; gap: .6rem; font-size: 1.0625rem; margin: .35rem 0; cursor: pointer; }
+  .opcoes input, .check input { width: 1.15rem; height: 1.15rem; accent-color: var(--cobalt); flex: none; }
+  .check { display: flex; gap: .6rem; align-items: flex-start; font-size: 1rem; line-height: 1.45; cursor: pointer; }
+  .check input { margin-top: .2rem; }
+  .oculto { display: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font: 700 1.0625rem/1 var(--sans); padding: 1rem 1.6rem; border-radius: 3px;
+    border: 2px solid var(--cobalt); background: var(--cobalt); color: #fff; cursor: pointer;
+  }
+  .btn:hover { background: var(--cobalt-deep); border-color: var(--cobalt-deep); }
+
+  .erro { color: #9B1C1C; font-weight: 700; font-size: 1rem; margin: 1rem 0 0; }
+  .erro:empty { display: none; }
+
+  /* Resultado */
+  .resultado { border-top: 3px solid var(--cobalt); padding-top: 1.5rem; }
+  .resultado-vazio { color: var(--stone); margin: 0; }
+  .destaque-rotulo { font-size: 1rem; color: var(--stone); margin: 0 0 .2rem; }
+  .destaque {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+    line-height: 1.05; margin: 0 0 1.75rem; color: var(--cobalt-deep); font-variant-numeric: lining-nums tabular-nums;
+  }
+  .numeros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; margin: 0 0 1.75rem; }
+  .numeros div { border-left: 3px solid var(--tile); padding-left: 1rem; }
+  .numeros dt { font-size: .9375rem; color: var(--stone); }
+  .numeros dd { margin: 0; font-family: var(--serif); font-size: 1.375rem; line-height: 1.3; font-variant-numeric: lining-nums tabular-nums; }
+  .base-legal { font-size: 1rem; margin: 0 0 1.5rem; }
+  .aviso { background: var(--alert-bg); color: var(--alert); border-left: 3px solid #D08A2E; padding: .85rem 1rem; font-size: 1rem; line-height: 1.5; margin: 0 0 1.5rem; }
+  .notas { margin: 0; padding-left: 1.1rem; font-size: .9375rem; color: var(--stone); line-height: 1.55; }
+  .notas li + li { margin-top: .5rem; }
+
+  .tabela-wrap { margin: 0 0 1.75rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9375rem; font-variant-numeric: lining-nums tabular-nums; }
+  caption { text-align: left; font-weight: 700; font-size: 1rem; margin-bottom: .5rem; }
+  th, td { text-align: left; padding: .5rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  th { font-size: .875rem; color: var(--stone); font-weight: 700; }
+  td.num, th.num { text-align: right; }
+  td input { width: 6.5rem; font: 400 .9375rem/1.2 var(--sans); padding: .4rem .5rem; border: 1px solid var(--field); border-radius: 3px; text-align: right; background: #fff; }
+  tr.prisao td:first-child { box-shadow: inset 3px 0 0 var(--cobalt); }
+  .rito { font-size: .8125rem; font-weight: 700; color: var(--cobalt-deep); white-space: nowrap; }
+  .rito.penhora { color: var(--stone); font-weight: 400; }
+
+  .contato-linha { margin: 1.75rem 0 0; font-size: 1rem; }
+
+  /* Rodapé */
+  footer { padding: 2.5rem 0 3rem; font-size: .9375rem; color: var(--stone); border-top: 1px solid var(--rule); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; }
+  footer p { margin: 0; max-width: 40rem; }
+
+  @media (max-width: 900px) {
+    .calc-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 1.0625rem; }
+    .masthead .wrap { padding-top: .9rem; padding-bottom: .9rem; }
+    .masthead nav ul { gap: .5rem 1.25rem; }
+    .brand { flex-direction: column; gap: 0; }
+    .btn { width: 100%; }
+    .numeros { grid-template-columns: 1fr; }
+    .col-venc { display: none; }
+    .tabela-wrap thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .tabela-wrap tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: .75rem; padding: .75rem 0 .8rem .85rem; border-bottom: 1px solid var(--rule); }
+    .tabela-wrap tr.prisao { box-shadow: inset 3px 0 0 var(--cobalt); }
+    .tabela-wrap td { border: 0; padding: 0; text-align: left; }
+    .tabela-wrap td.num { text-align: left; }
+    .tabela-wrap td:first-child { grid-column: 1 / 3; font-weight: 700; margin-bottom: .4rem; box-shadow: none; }
+    .tabela-wrap td.td-rito { grid-column: 3; grid-row: 1; text-align: right; }
+    .tabela-wrap td[data-label]::before { content: attr(data-label); display: block; font-size: .8125rem; color: var(--stone); margin-bottom: .1rem; }
+    .tabela-wrap td input { width: 100%; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="brand-name">Breno Marques</span>
+      <span class="brand-oab">OAB/BA 62.266</span>
+    </a>
+    <nav aria-label="Seções do site">
+      <ul>
+        <li><a href="./#atuacao">Atuação</a></li>
+        <li><a href="calculadoras.html" aria-current="page">Calculadoras</a></li>
+        <li><a href="./#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="page-head" aria-labelledby="titulo">
+    <div class="wrap">
+      <h1 id="titulo">Calculadoras</h1>
+      <p>Duas ferramentas para uma estimativa rápida, com as regras atuais. As contas são feitas no seu próprio aparelho: nenhum dado é enviado ou guardado.</p>
+      <ul class="indice">
+        <li><a href="#alimentos">Débito de pensão alimentícia</a></li>
+        <li><a href="#progressao">Progressão de regime</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Pensão alimentícia -->
+  <section id="alimentos" class="calc" aria-labelledby="t-alimentos">
+    <div class="wrap">
+      <h2 id="t-alimentos">Débito de pensão alimentícia</h2>
+      <p class="intro">Estime o valor das parcelas em atraso e veja quais podem ser cobradas pelo rito da prisão.</p>
+      <div class="calc-grid">
+        <form id="form-alimentos" novalidate>
+          <fieldset class="opcoes">
+            <legend>Como a pensão foi fixada</legend>
+            <label><input type="radio" name="a-tipo" value="fixo" checked> Valor em reais</label>
+            <label><input type="radio" name="a-tipo" value="sm"> Percentual do salário mínimo</label>
+          </fieldset>
+          <div class="campo" id="a-campo-valor">
+            <label for="a-valor">Valor mensal da pensão (R$)</label>
+            <input type="text" id="a-valor" inputmode="decimal" placeholder="Ex.: 500,00" autocomplete="off">
+          </div>
+          <div class="campo oculto" id="a-campo-pct">
+            <label for="a-pct">Percentual do salário mínimo (%)</label>
+            <input type="text" id="a-pct" inputmode="decimal" placeholder="Ex.: 30" autocomplete="off">
+            <span class="ajuda">O valor de cada mês é calculado com o salário mínimo vigente naquele mês.</span>
+          </div>
+          <fieldset>
+            <legend>Período em atraso</legend>
+            <div class="grade-2">
+              <label><span class="sub">Primeiro mês</span><input type="text" id="a-inicio" inputmode="numeric" placeholder="mm/aaaa" autocomplete="off"></label>
+              <label><span class="sub">Último mês</span><input type="text" id="a-fim" inputmode="numeric" placeholder="mm/aaaa" autocomplete="off"></label>
+            </div>
+          </fieldset>
+          <div class="campo">
+            <label for="a-dia">Dia do vencimento</label>
+            <input type="text" id="a-dia" inputmode="numeric" value="10" autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="a-ajuiz">Data do ajuizamento da execução</label>
+            <input type="date" id="a-ajuiz">
+            <span class="ajuda">Se a execução ainda não foi proposta, deixe a data de hoje.</span>
+          </div>
+          <button class="btn" type="submit">Calcular débito</button>
+          <p class="erro" id="a-erro" role="alert"></p>
+        </form>
+
+        <div class="resultado" id="a-resultado" aria-live="polite">
+          <p class="resultado-vazio">Preencha os dados ao lado e clique em calcular. Depois, você pode informar na tabela os valores pagos em cada mês.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progressão de regime -->
+  <section id="progressao" class="calc" aria-labelledby="t-progressao">
+    <div class="wrap">
+      <h2 id="t-progressao">Progressão de regime</h2>
+      <p class="intro">Estime a data em que se completa o tempo exigido para a progressão de regime, conforme a lei aplicável na data do crime.</p>
+      <div class="calc-grid">
+        <form id="form-progressao" novalidate>
+          <fieldset>
+            <legend>Pena a cumprir</legend>
+            <div class="grade-3">
+              <label><span class="sub">Anos</span><input type="text" id="p-anos" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+              <label><span class="sub">Meses</span><input type="text" id="p-meses" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+              <label><span class="sub">Dias</span><input type="text" id="p-dias" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+            </div>
+            <span class="ajuda">A pena total. Se já houve progressão ou falta grave, informe a pena que restava naquela data.</span>
+          </fieldset>
+          <div class="campo">
+            <label for="p-base">Data-base</label>
+            <input type="date" id="p-base">
+            <span class="ajuda">Início do cumprimento da pena, data da última progressão ou da última falta grave.</span>
+          </div>
+          <div class="campo">
+            <label for="p-fato">Data do crime</label>
+            <input type="date" id="p-fato">
+            <span class="ajuda">Define qual lei se aplica. As regras mudaram em 2007, 2020, 2024 e duas vezes em 2026.</span>
+          </div>
+          <div class="campo">
+            <label for="p-tipo">Tipo de crime</label>
+            <select id="p-tipo">
+              <option value="comum_sem">Crime comum sem violência ou grave ameaça</option>
+              <option value="comum_com">Crime comum com violência ou grave ameaça</option>
+              <option value="hediondo">Crime hediondo ou equiparado, sem resultado morte</option>
+              <option value="hediondo_morte">Crime hediondo com resultado morte</option>
+              <option value="feminicidio">Feminicídio</option>
+              <option value="faccao">Comando de organização criminosa ou milícia privada</option>
+            </select>
+            <span class="ajuda">O tráfico privilegiado (art. 33, § 4º, da Lei 11.343/2006) não é hediondo: escolha crime comum sem violência.</span>
+          </div>
+          <div class="campo">
+            <label for="p-ant">Antecedentes</label>
+            <select id="p-ant">
+              <option value="prim">Primário(a)</option>
+              <option value="gen">Reincidente em crime comum</option>
+              <option value="esp">Reincidente em crime hediondo ou equiparado</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="check" for="p-mulher"><input type="checkbox" id="p-mulher"> <span>Mulher gestante, mãe ou responsável por criança ou pessoa com deficiência (art. 112, § 3º, da LEP)</span></label>
+          </div>
+          <fieldset>
+            <legend>Dias a descontar</legend>
+            <div class="grade-2">
+              <label><span class="sub">Detração (prisão provisória)</span><input type="text" id="p-detracao" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+              <label><span class="sub">Remição (trabalho ou estudo)</span><input type="text" id="p-remicao" inputmode="numeric" placeholder="0" autocomplete="off"></label>
+            </div>
+            <span class="ajuda">Informe apenas dias ainda não descontados da data-base.</span>
+          </fieldset>
+          <button class="btn" type="submit">Calcular progressão</button>
+          <p class="erro" id="p-erro" role="alert"></p>
+        </form>
+
+        <div class="resultado" id="p-resultado" aria-live="polite">
+          <p class="resultado-vazio">Preencha os dados ao lado e clique em calcular.</p>
+        </div>
+      </div>
+      <p class="contato-linha">Os resultados são estimativas e não substituem a análise do caso concreto. Os contatos do escritório estão na <a href="./#contato">página inicial</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Breno Marques, advogado inscrito na OAB/BA sob o nº&nbsp;62.266.</p>
+    <p>As informações deste site têm caráter meramente informativo e não substituem a análise de um caso concreto.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  var DIA = 86400000;
+
+  /* ---------- datas ---------- */
+  function mk(y, m, d) {
+    var dt = new Date(Date.UTC(y, m - 1, d));
+    return (dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d) ? dt : null;
+  }
+  function hoje() {
+    var n = new Date();
+    return new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()));
+  }
+  function isoHoje() { return hoje().toISOString().slice(0, 10); }
+  function lerData(v) {
+    v = (v || '').trim();
+    var m = v.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (m) return mk(+m[1], +m[2], +m[3]);
+    m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (m) return mk(+m[3], +m[2], +m[1]);
+    return null;
+  }
+  function lerMes(v) {
+    v = (v || '').trim();
+    var m = v.match(/^(\d{1,2})\s*\/\s*(\d{4})$/) || v.match(/^(\d{1,2})\s*-\s*(\d{4})$/);
+    var y, mo;
+    if (m) { mo = +m[1]; y = +m[2]; }
+    else {
+      m = v.match(/^(\d{4})-(\d{1,2})$/);
+      if (!m) return null;
+      y = +m[1]; mo = +m[2];
+    }
+    return (mo >= 1 && mo <= 12 && y >= 1950 && y <= 2100) ? { y: y, m: mo } : null;
+  }
+  function diasNoMes(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+  function somaDias(d, n) { return new Date(d.getTime() + n * DIA); }
+  function difDias(a, b) { return Math.round((b - a) / DIA); }
+  function somaAMD(d, anos, meses, dias) {
+    var total = d.getUTCMonth() + meses;
+    var ano = d.getUTCFullYear() + anos + Math.floor(total / 12);
+    var mes = ((total % 12) + 12) % 12;
+    var dia = Math.min(d.getUTCDate(), diasNoMes(ano, mes + 1));
+    return somaDias(new Date(Date.UTC(ano, mes, dia)), dias);
+  }
+  function amdEntre(a, b) {
+    var y = b.getUTCFullYear() - a.getUTCFullYear();
+    var m = b.getUTCMonth() - a.getUTCMonth();
+    var d = b.getUTCDate() - a.getUTCDate();
+    if (d < 0) { m -= 1; d += diasNoMes(b.getUTCFullYear(), b.getUTCMonth()); }
+    if (m < 0) { y -= 1; m += 12; }
+    return { y: y, m: m, d: d };
+  }
+  function textoAMD(o) {
+    var p = [];
+    if (o.y) p.push(o.y + (o.y === 1 ? ' ano' : ' anos'));
+    if (o.m) p.push(o.m + (o.m === 1 ? ' mês' : ' meses'));
+    if (o.d || !p.length) p.push(o.d + (o.d === 1 ? ' dia' : ' dias'));
+    return p.length > 1 ? p.slice(0, -1).join(', ') + ' e ' + p[p.length - 1] : p[0];
+  }
+  function fData(d) {
+    return String(d.getUTCDate()).padStart(2, '0') + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + d.getUTCFullYear();
+  }
+  function fNum(n) { return n.toLocaleString('pt-BR'); }
+
+  /* ---------- números ---------- */
+  function lerValor(v) {
+    v = (v || '').replace(/[R$\s]/g, '');
+    if (!v) return NaN;
+    if (v.indexOf(',') >= 0) v = v.replace(/\./g, '').replace(',', '.');
+    return /^\d+(\.\d+)?$/.test(v) ? parseFloat(v) : NaN;
+  }
+  function lerInteiro(v) {
+    v = (v || '').trim();
+    if (!v) return 0;
+    return /^\d+$/.test(v) ? parseInt(v, 10) : NaN;
+  }
+  function r2(x) { return Math.round(x * 100) / 100; }
+
+  /* =========================================================
+     PENSÃO ALIMENTÍCIA
+     ========================================================= */
+  // Salário mínimo nacional: [início da vigência (aaaa*12 + mês), valor]
+  var SM = [
+    [2016, 1, 880], [2017, 1, 937], [2018, 1, 954], [2019, 1, 998],
+    [2020, 1, 1039], [2020, 2, 1045], [2021, 1, 1100], [2022, 1, 1212],
+    [2023, 1, 1302], [2023, 5, 1320], [2024, 1, 1412], [2025, 1, 1518],
+    [2026, 1, 1621]
+  ];
+  var SM_ULTIMO_ANO = 2026;
+  function salarioMinimo(y, m) {
+    var k = y * 12 + m, v = null;
+    for (var i = 0; i < SM.length; i++) if (SM[i][0] * 12 + SM[i][1] <= k) v = SM[i][2];
+    return v;
+  }
+
+  var aLinhas = [];
+  var aEstado = null;
+
+  function tipoAlimentos() { return document.querySelector('input[name="a-tipo"]:checked').value; }
+  function alternarTipo() {
+    var sm = tipoAlimentos() === 'sm';
+    $('#a-campo-valor').classList.toggle('oculto', sm);
+    $('#a-campo-pct').classList.toggle('oculto', !sm);
+  }
+
+  function calcularAlimentos(ev) {
+    if (ev) ev.preventDefault();
+    var erro = $('#a-erro');
+    erro.textContent = '';
+    var tipo = tipoAlimentos();
+    var valor = lerValor($('#a-valor').value);
+    var pct = lerValor($('#a-pct').value);
+    var ini = lerMes($('#a-inicio').value);
+    var fim = lerMes($('#a-fim').value);
+    var dia = lerInteiro($('#a-dia').value);
+    var aj = lerData($('#a-ajuiz').value);
+    var h = hoje();
+
+    if (tipo === 'fixo' && !(valor > 0)) return falhaA('Informe o valor mensal da pensão, por exemplo 500,00.');
+    if (tipo === 'sm' && !(pct > 0 && pct <= 500)) return falhaA('Informe o percentual do salário mínimo, por exemplo 30.');
+    if (!ini || !fim) return falhaA('Informe o primeiro e o último mês em atraso no formato mm/aaaa.');
+    var kIni = ini.y * 12 + ini.m, kFim = fim.y * 12 + fim.m;
+    var kHoje = h.getUTCFullYear() * 12 + h.getUTCMonth() + 1;
+    if (kIni > kFim) return falhaA('O primeiro mês não pode ser posterior ao último.');
+    if (kFim > kHoje) return falhaA('O último mês não pode ser posterior ao mês atual.');
+    if (kFim - kIni > 359) return falhaA('O período máximo é de 30 anos.');
+    if (!(dia >= 1 && dia <= 31)) return falhaA('Informe o dia do vencimento, entre 1 e 31.');
+    if (!aj) return falhaA('Informe a data do ajuizamento da execução.');
+    if (tipo === 'sm' && kIni < 2016 * 12 + 1) return falhaA('A tabela do salário mínimo desta calculadora começa em janeiro de 2016. Para meses anteriores, use a opção de valor em reais.');
+
+    var anteriores = {};
+    aLinhas.forEach(function (l) { anteriores[l.k] = l.pago; });
+
+    aLinhas = [];
+    var smFuturo = false;
+    for (var k = kIni; k <= kFim; k++) {
+      var y = Math.floor((k - 1) / 12), m = ((k - 1) % 12) + 1;
+      var v;
+      if (tipo === 'sm') {
+        if (y > SM_ULTIMO_ANO) smFuturo = true;
+        v = r2(salarioMinimo(y, m) * pct / 100);
+      } else {
+        v = r2(valor);
+      }
+      var venc = mk(y, m, Math.min(dia, diasNoMes(y, m)));
+      aLinhas.push({ k: k, y: y, m: m, venc: venc, valor: v, pago: anteriores[k] || 0 });
+    }
+
+    // Rito: as três últimas parcelas vencidas antes do ajuizamento e as que vencem depois dele -> prisão
+    var antes = aLinhas.filter(function (l) { return l.venc < aj; }).sort(function (a, b) { return b.venc - a.venc; });
+    antes.forEach(function (l, i) { l.rito = i < 3 ? 'prisao' : 'penhora'; });
+    aLinhas.forEach(function (l) { if (l.venc >= aj) l.rito = 'curso'; });
+
+    aEstado = { tipo: tipo, pct: pct, aj: aj, smFuturo: smFuturo };
+    desenharAlimentos();
+  }
+
+  function desenharAlimentos() {
+    var linhasHtml = aLinhas.map(function (l, i) {
+      var rotulo = l.rito === 'penhora' ? 'Penhora' : 'Prisão';
+      return '<tr class="' + (l.rito === 'penhora' ? 'penhora' : 'prisao') + '">' +
+        '<td>' + MESES[l.m - 1] + '/' + l.y + '</td>' +
+        '<td class="col-venc">' + fData(l.venc) + '</td>' +
+        '<td class="num" data-label="Pensão">' + brl.format(l.valor) + '</td>' +
+        '<td class="num" data-label="Pago"><input type="text" inputmode="decimal" data-i="' + i + '" value="' + (l.pago ? l.pago.toFixed(2).replace('.', ',') : '') + '" placeholder="0,00" aria-label="Valor pago em ' + MESES[l.m - 1] + '/' + l.y + '"></td>' +
+        '<td class="num" data-label="Em aberto" data-saldo="' + i + '">' + brl.format(Math.max(0, r2(l.valor - l.pago))) + '</td>' +
+        '<td class="td-rito"><span class="rito ' + (l.rito === 'penhora' ? 'penhora' : '') + '">' + rotulo + '</span></td>' +
+        '</tr>';
+    }).join('');
+
+    var avisos = '';
+    if (aEstado.smFuturo) avisos += '<p class="aviso">O salário mínimo de ' + (SM_ULTIMO_ANO + 1) + ' em diante ainda não está na tabela. Para esses meses foi usado o valor de ' + SM_ULTIMO_ANO + '.</p>';
+
+    $('#a-resultado').innerHTML =
+      '<p class="destaque-rotulo">Valor em aberto</p>' +
+      '<p class="destaque" id="a-total-aberto"></p>' +
+      '<dl class="numeros">' +
+        '<div><dt>Total das parcelas</dt><dd id="a-total"></dd></div>' +
+        '<div><dt>Total pago</dt><dd id="a-pago"></dd></div>' +
+        '<div><dt>Cobrável pelo rito da prisão</dt><dd id="a-prisao"></dd></div>' +
+        '<div><dt>Cobrável pelo rito da penhora</dt><dd id="a-penhora"></dd></div>' +
+      '</dl>' +
+      avisos +
+      '<div class="tabela-wrap"><table>' +
+        '<caption>' + aLinhas.length + (aLinhas.length === 1 ? ' parcela' : ' parcelas') + ' (informe na coluna "Pago" o que já foi pago em cada mês)</caption>' +
+        '<thead><tr><th scope="col">Mês</th><th scope="col" class="col-venc">Vencimento</th><th scope="col" class="num">Pensão</th><th scope="col" class="num">Pago</th><th scope="col" class="num">Em aberto</th><th scope="col">Rito</th></tr></thead>' +
+        '<tbody>' + linhasHtml + '</tbody>' +
+      '</table></div>' +
+      '<ul class="notas">' +
+        '<li>Valores sem correção monetária e sem juros. No processo, cada parcela é atualizada desde o seu vencimento.</li>' +
+        '<li>Pelo rito da prisão (art. 528, § 7º, do CPC) podem ser cobradas as três parcelas anteriores ao ajuizamento e as que vencerem durante o processo. As demais seguem o rito da penhora de bens.</li>' +
+        '<li>Parcelas vencidas há mais de dois anos podem estar prescritas (art. 206, § 2º, do Código Civil). A prescrição não corre entre pais e filhos durante o poder familiar nem contra menores de 16 anos (arts. 197, II, e 198, I).</li>' +
+        '<li>Se o valor da pensão mudou durante o período, por reajuste ou acordo, faça um cálculo para cada período.</li>' +
+      '</ul>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('#a-resultado td input'), function (inp) {
+      inp.addEventListener('input', function () {
+        var i = +inp.getAttribute('data-i');
+        var v = lerValor(inp.value);
+        aLinhas[i].pago = v > 0 ? r2(v) : 0;
+        inp.setAttribute('aria-invalid', inp.value.trim() && !(v >= 0) ? 'true' : 'false');
+        document.querySelector('[data-saldo="' + i + '"]').textContent = brl.format(Math.max(0, r2(aLinhas[i].valor - aLinhas[i].pago)));
+        totaisAlimentos();
+      });
+    });
+    totaisAlimentos();
+  }
+
+  function totaisAlimentos() {
+    var total = 0, pago = 0, prisao = 0, penhora = 0;
+    aLinhas.forEach(function (l) {
+      var saldo = Math.max(0, r2(l.valor - l.pago));
+      total += l.valor; pago += Math.min(l.pago, l.valor);
+      if (l.rito === 'penhora') penhora += saldo; else prisao += saldo;
+    });
+    $('#a-total-aberto').textContent = brl.format(r2(prisao + penhora));
+    $('#a-total').textContent = brl.format(r2(total));
+    $('#a-pago').textContent = brl.format(r2(pago));
+    $('#a-prisao').textContent = brl.format(r2(prisao));
+    $('#a-penhora').textContent = brl.format(r2(penhora));
+  }
+
+  /* =========================================================
+     PROGRESSÃO DE REGIME
+     ========================================================= */
+  var LIM = {
+    l11464: mk(2007, 3, 29),   // Lei 11.464/2007
+    anticrime: mk(2020, 1, 23), // Lei 13.964/2019
+    l14994: mk(2024, 10, 10),  // Lei 14.994/2024
+    l15358: mk(2026, 3, 25),   // Lei 15.358/2026
+    l15402: mk(2026, 5, 8)     // Lei 15.402/2026
+  };
+  function F(n, d, rotulo, base, nota) { return { n: n, d: d, rotulo: rotulo, base: base, nota: nota || null }; }
+  function P(p, base, nota) { return F(p, 100, p + '%', base, nota); }
+
+  var ANALOGIA = 'Para o reincidente em crime comum, foi aplicado o percentual do primário, por analogia aos Temas 1084 e 1196 do STJ. Os tribunais superiores ainda não decidiram essa questão na Lei 15.358/2026.';
+
+  function fracao(fato, tipo, ant, mulher) {
+    var reinc = ant !== 'prim';
+
+    if (mulher && tipo === 'comum_sem' && !reinc) {
+      return F(1, 8, '1/8', 'art. 112, § 3º, da LEP (Lei 13.769/2018)',
+        'A fração de 1/8 exige, além de ser primária, não ter cometido crime com violência ou grave ameaça nem contra filho ou dependente, ter bom comportamento e não integrar organização criminosa.');
+    }
+
+    if (fato < LIM.anticrime) {
+      if (tipo === 'comum_sem' || tipo === 'comum_com') {
+        if (tipo === 'comum_sem' && !reinc) return P(16, 'art. 112, I, da LEP (Lei 13.964/2019), que alcança fatos anteriores por ser mais benéfico que 1/6');
+        return F(1, 6, '1/6', 'art. 112 da LEP na redação anterior à Lei 13.964/2019, mais benéfica para fatos dessa época');
+      }
+      if (tipo === 'faccao') return { erro: 'Para crimes anteriores a 23/01/2020, escolha crime comum ou crime hediondo, conforme a condenação.' };
+      if (fato < LIM.l11464) return F(1, 6, '1/6', 'Súmula Vinculante 26 do STF: a Lei 11.464/2007 não alcança fatos anteriores a ela');
+      var morteAnt = (tipo === 'hediondo_morte' || tipo === 'feminicidio');
+      var notaFem = tipo === 'feminicidio' ? 'Antes da Lei 14.994/2024, o feminicídio era homicídio qualificado, um crime hediondo com resultado morte.' : null;
+      if (ant === 'prim') return F(2, 5, '2/5 (40%)', 'art. 2º, § 2º, da Lei 8.072/1990, na redação da Lei 11.464/2007', notaFem);
+      if (ant === 'esp') return F(3, 5, '3/5 (60%)', 'art. 2º, § 2º, da Lei 8.072/1990, na redação da Lei 11.464/2007', notaFem);
+      return morteAnt
+        ? P(50, 'art. 112, VI, a, da LEP, aplicado a fatos anteriores para o reincidente em crime comum (STJ, Tema 1196)', notaFem)
+        : P(40, 'art. 112, V, da LEP, aplicado a fatos anteriores para o reincidente em crime comum (STJ, Tema 1084)');
+    }
+
+    var lei15402 = fato >= LIM.l15402;
+    if (tipo === 'comum_sem') {
+      if (!reinc) return lei15402 ? F(1, 6, '1/6', 'art. 112, caput, da LEP (Lei 15.402/2026)') : P(16, 'art. 112, I, da LEP (Lei 13.964/2019)');
+      return P(20, lei15402 ? 'art. 112, III, da LEP (Lei 15.402/2026)' : 'art. 112, II, da LEP (Lei 13.964/2019)');
+    }
+    if (tipo === 'comum_com') {
+      var notaTit = lei15402 ? 'A Lei 15.402/2026 excluiu desses percentuais os crimes contra o Estado Democrático de Direito (Título XII do Código Penal), ponto questionado no STF.' : null;
+      if (!reinc) return P(25, lei15402 ? 'art. 112, I, da LEP (Lei 15.402/2026)' : 'art. 112, III, da LEP (Lei 13.964/2019)', notaTit);
+      return P(30, lei15402 ? 'art. 112, II, da LEP (Lei 15.402/2026)' : 'art. 112, IV, da LEP (Lei 13.964/2019)', notaTit);
+    }
+
+    var nova = fato >= LIM.l15358;
+    if (tipo === 'hediondo') {
+      if (!nova) {
+        if (ant === 'esp') return P(60, 'art. 112, VII, da LEP (Lei 13.964/2019)');
+        return P(40, ant === 'prim' ? 'art. 112, V, da LEP (Lei 13.964/2019)' : 'art. 112, V, da LEP, aplicado ao reincidente em crime comum (STJ, Tema 1084)');
+      }
+      if (ant === 'esp') return P(80, 'art. 112, VII, da LEP (Lei 15.358/2026)');
+      return P(70, 'art. 112, V, da LEP (Lei 15.358/2026)', ant === 'gen' ? ANALOGIA : null);
+    }
+    if (tipo === 'hediondo_morte' || (tipo === 'feminicidio' && fato < LIM.l14994)) {
+      var nf = tipo === 'feminicidio' ? 'Antes da Lei 14.994/2024, o feminicídio era homicídio qualificado, um crime hediondo com resultado morte.' : null;
+      if (nova) {
+        if (ant === 'esp') return P(85, 'art. 112, VIII, da LEP (Lei 15.358/2026)');
+        return P(75, 'art. 112, VI, a, da LEP (Lei 15.358/2026)', ant === 'gen' ? ANALOGIA : null);
+      }
+      if (ant === 'esp') return P(70, 'art. 112, VIII, da LEP (Lei 13.964/2019)', nf);
+      return P(50, ant === 'prim' ? 'art. 112, VI, a, da LEP (Lei 13.964/2019)' : 'art. 112, VI, a, da LEP, aplicado ao reincidente em crime comum (STJ, Tema 1196)', nf);
+    }
+    if (tipo === 'feminicidio') {
+      if (!nova) {
+        if (ant === 'esp') return P(70, 'art. 112, VIII, da LEP (Lei 13.964/2019)');
+        return P(55, 'art. 112, VI-A, da LEP (Lei 14.994/2024)', ant === 'gen' ? 'O inciso VI-A menciona apenas o primário. Para o reincidente em crime comum, foi aplicado o mesmo percentual, por analogia ao Tema 1196 do STJ; a questão não está pacificada.' : null);
+      }
+      if (ant === 'esp') return P(85, 'art. 112, VIII, da LEP (Lei 15.358/2026)');
+      return P(75, 'art. 112, VI, d, da LEP (Lei 15.358/2026)', ant === 'gen' ? ANALOGIA : null);
+    }
+    if (tipo === 'faccao') {
+      return P(nova ? 75 : 50, nova ? 'art. 112, VI, b e c, da LEP (Lei 15.358/2026)' : 'art. 112, VI, b e c, da LEP (Lei 13.964/2019)',
+        ant === 'esp' ? 'Se a pessoa for reincidente em crime hediondo, pode incidir o percentual maior do inciso VII.' : null);
+    }
+    return { erro: 'Não foi possível identificar a fração para essa combinação.' };
+  }
+
+  function calcularProgressao(ev) {
+    if (ev) ev.preventDefault();
+    var erro = $('#p-erro');
+    erro.textContent = '';
+    var anos = lerInteiro($('#p-anos').value), meses = lerInteiro($('#p-meses').value), dias = lerInteiro($('#p-dias').value);
+    var base = lerData($('#p-base').value), fato = lerData($('#p-fato').value);
+    var tipo = $('#p-tipo').value, ant = $('#p-ant').value, mulher = $('#p-mulher').checked;
+    var det = lerInteiro($('#p-detracao').value), rem = lerInteiro($('#p-remicao').value);
+
+    if ([anos, meses, dias].some(isNaN)) return falhaP('A pena deve ser informada em números inteiros de anos, meses e dias.');
+    if (!(anos + meses + dias > 0)) return falhaP('Informe a pena a cumprir.');
+    if (anos > 100) return falhaP('Confira a pena informada.');
+    if (!base) return falhaP('Informe a data-base.');
+    if (!fato) return falhaP('Informe a data do crime.');
+    if (fato > hoje()) return falhaP('A data do crime não pode ser futura.');
+    if (isNaN(det) || isNaN(rem)) return falhaP('Detração e remição devem ser informadas em dias, com números inteiros.');
+
+    var f = fracao(fato, tipo, ant, mulher);
+    if (f.erro) return falhaP(f.erro);
+
+    var fim = somaAMD(base, anos, meses, dias);
+    var total = difDias(base, fim);
+    var exigido = Math.ceil(total * f.n / f.d);
+    var desconto = det + rem;
+    var dataReq = somaDias(base, exigido - desconto);
+    var dataFim = somaDias(base, total - desconto);
+    var jaCumprido = dataReq <= hoje();
+
+    var avisos = '';
+    if (mulher && !(tipo === 'comum_sem' && ant === 'prim')) {
+      avisos += '<p class="aviso">A fração de 1/8 do § 3º só foi aplicada a crimes sem violência ou grave ameaça, para mulher primária. Para outros casos, confira a jurisprudência aplicável.</p>';
+    }
+    if (f.nota) avisos += '<p class="aviso">' + f.nota + '</p>';
+
+    $('#p-resultado').innerHTML =
+      '<p class="destaque-rotulo">' + (jaCumprido ? 'Requisito de tempo cumprido em' : 'Requisito de tempo previsto para') + '</p>' +
+      '<p class="destaque">' + fData(dataReq) + '</p>' +
+      '<dl class="numeros">' +
+        '<div><dt>Fração aplicada</dt><dd>' + f.rotulo + ' da pena</dd></div>' +
+        '<div><dt>Tempo exigido</dt><dd>' + textoAMD(amdEntre(base, somaDias(base, exigido))) + '</dd></div>' +
+        '<div><dt>Pena considerada</dt><dd>' + fNum(total) + ' dias</dd></div>' +
+        '<div><dt>Término previsto da pena</dt><dd>' + fData(dataFim) + '</dd></div>' +
+      '</dl>' +
+      '<p class="base-legal"><strong>Base legal:</strong> ' + f.base + '.</p>' +
+      avisos +
+      '<ul class="notas">' +
+        '<li>Além do tempo, a progressão exige boa conduta carcerária e, desde a Lei 14.843/2024, os resultados do exame criminológico (art. 112, § 1º, da LEP). A exigência do exame para crimes anteriores a essa lei é discutida nos tribunais.</li>' +
+        '<li>A falta grave interrompe o prazo, que recomeça sobre a pena restante (art. 112, § 6º).</li>' +
+        '<li>Com mais de uma condenação, cada pena pode ter uma fração diferente. Esta calculadora considera uma condenação por vez.</li>' +
+        '<li>É uma estimativa. O cálculo oficial é feito pelo juízo da execução e pode diferir em alguns dias.</li>' +
+      '</ul>';
+  }
+
+  function falha(el, msg) { el.textContent = msg; return false; }
+  function falhaA(msg) {
+    $('#a-resultado').innerHTML = '<p class="resultado-vazio">Corrija os dados ao lado para ver o resultado.</p>';
+    return falha($('#a-erro'), msg);
+  }
+  function falhaP(msg) {
+    $('#p-resultado').innerHTML = '<p class="resultado-vazio">Corrija os dados ao lado para ver o resultado.</p>';
+    return falha($('#p-erro'), msg);
+  }
+
+  /* ---------- início ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="a-tipo"]'), function (r) { r.addEventListener('change', alternarTipo); });
+  $('#a-ajuiz').value = isoHoje();
+  $('#form-alimentos').addEventListener('submit', calcularAlimentos);
+  $('#form-progressao').addEventListener('submit', calcularProgressao);
+})();
+</script>
+</body>
+</html>
