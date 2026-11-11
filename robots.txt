@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brenomarquesadv.github.io/sitemap.xml
